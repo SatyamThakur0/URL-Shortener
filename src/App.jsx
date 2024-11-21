@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "./components/Header";
 import UrlShortener from "./components/Url_shortener";
 import ShortenedUrls from "./components/Shortened_urls";
+import { toast } from "sonner";
 
 function App() {
     // STATES
@@ -16,12 +17,25 @@ function App() {
     useEffect(() => {
         setURL(JSON.parse(localStorage.getItem("urls")) || []);
     }, []);
-
+    
+    // FUNCTION TO CHECK URL IS VALID OR NOT
+    function isValidURL(url) {
+        const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+        return urlPattern.test(url);
+    }
     // ON FORM SUBMIT
     const handleSubmit = async (e) => {
         const backendurl = import.meta.env.VITE_BACKEND_URL;
         e.preventDefault();
         setLoading(true);
+        if (longUrl === "") {
+            setLoading(false);
+            return toast.warning("URL Required");
+        }
+        if (!isValidURL(longUrl)) {
+            setLoading(false);
+            return toast.warning("Plzzz enter valid URL 🙏");
+        }
         try {
             let response = await axios.post(
                 `${backendurl}/api/shorten`,
@@ -38,6 +52,7 @@ function App() {
             response = response.data;
             // CLEARING INPUT FIELD
             inputRef.current.value = "";
+            setLongUrl("");
             setLoading(false);
 
             if (!localStorage.getItem("urls")) {
