@@ -2,8 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const shortid = require("shortid");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
 const app = express();
+dotenv.config({});
 
 // Middleware
 app.use(express.json());
@@ -35,7 +37,7 @@ app.post("/api/shorten", async (req, res) => {
         return res.status(400).json({ error: "Long URL is required" });
 
     const shortId = shortid.generate();
-    const shortUrl = `http://localhost:5000/${shortId}`;
+    const shortUrl = `${process.env.BACKEND_URL}/${shortId}`;
 
     try {
         const newUrl = new Url({ longUrl, shortId });
@@ -68,7 +70,7 @@ app.get("/:shortId", async (req, res) => {
     }
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () =>
     console.log(`Server running on http://localhost:${PORT}`)
 );

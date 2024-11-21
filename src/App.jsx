@@ -14,12 +14,13 @@ function App() {
     }, []);
 
     const handleSubmit = async (e) => {
+        const backendurl = import.meta.env.VITE_BACKEND_URL;
+
         e.preventDefault();
         try {
-            let response = await axios.post(
-                "http://localhost:5000/api/shorten",
-                { longUrl }
-            );
+            let response = await axios.post(`${backendurl}/api/shorten`, {
+                longUrl,
+            });
             response = response.data;
 
             if (!localStorage.getItem("urls")) {
