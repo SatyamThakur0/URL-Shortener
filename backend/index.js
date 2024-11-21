@@ -9,7 +9,7 @@ dotenv.config({});
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 app.use(
     cors({
@@ -18,6 +18,7 @@ app.use(
         credentials: true,
     })
 );
+app.options("*", cors());
 
 // Connect to MongoDB
 mongoose
