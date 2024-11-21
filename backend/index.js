@@ -11,13 +11,19 @@ dotenv.config({});
 app.use(express.json());
 // app.use(cors());
 
-app.use(
-    cors({
-        origin: process.env.FRONTEND_URL,
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-    })
-);
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true,
+}));
+
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.status(200).end();
+});
 app.options("*", cors());
 
 // Connect to MongoDB

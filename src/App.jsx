@@ -18,9 +18,18 @@ function App() {
 
         e.preventDefault();
         try {
-            let response = await axios.post(`${backendurl}/api/shorten`, {
-                longUrl,
-            });
+            let response = await axios.post(
+                `${backendurl}/api/shorten`,
+                {
+                    longUrl,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true, // Ensures cookies are sent if required
+                }
+            );
             response = response.data;
 
             if (!localStorage.getItem("urls")) {
