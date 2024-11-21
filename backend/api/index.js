@@ -13,10 +13,10 @@ app.use(cors());
 
 // Connect to MongoDB
 mongoose
-    .connect("mongodb://localhost:27017/urlShortener", {
+    .connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-    })
+    }) 
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -29,7 +29,7 @@ const urlSchema = new mongoose.Schema({
 
 const Url = mongoose.model("Url", urlSchema);
 
-// API Routes
+// API Routes 
 app.post("/api/shorten", async (req, res) => {
     const { longUrl } = req.body;
 
