@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { FaLink } from "react-icons/fa";
+import { toast } from "sonner";
 
 export default function Header() {
     return (
@@ -10,7 +11,13 @@ export default function Header() {
             </div>
             <div className="flex items-center gap-4">
                 <span className="font-semibold">Hi, Satyam 👋</span>
-                <Button variant="outline" className="text-black">
+                <Button
+                    onClick={() => {
+                        toast.warning("Authentication not implemented yet!");
+                    }}
+                    variant="outline"
+                    className="text-black"
+                >
                     Logout
                 </Button>
             </div>

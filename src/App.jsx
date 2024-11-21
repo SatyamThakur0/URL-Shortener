@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Header from "./components/Header";
 import UrlShortener from "./components/Url_shortener";
@@ -8,6 +8,8 @@ function App() {
     const [longUrl, setLongUrl] = useState("");
     const [shortUrl, setShortUrl] = useState("");
     const [URL, setURL] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const inputRef = useRef();
 
     useEffect(() => {
         setURL(JSON.parse(localStorage.getItem("urls")));
@@ -15,8 +17,8 @@ function App() {
 
     const handleSubmit = async (e) => {
         const backendurl = import.meta.env.VITE_BACKEND_URL;
-
         e.preventDefault();
+        setLoading(true);
         try {
             let response = await axios.post(
                 `${backendurl}/api/shorten`,
@@ -31,6 +33,8 @@ function App() {
                 }
             );
             response = response.data;
+            inputRef.current.value = "";
+            setLoading(false);
 
             if (!localStorage.getItem("urls")) {
                 localStorage.setItem("urls", JSON.stringify([]));
@@ -42,6 +46,8 @@ function App() {
             setShortUrl(response.shortUrl);
         } catch (error) {
             console.error("Error shortening URL:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -53,6 +59,8 @@ function App() {
                     shortURL={shortUrl}
                     handleSubmit={handleSubmit}
                     setLongUrl={setLongUrl}
+                    loading={loading}
+                    inputRef={inputRef}
                 />
                 <ShortenedUrls URL={URL} setURL={setURL} />
             </main>
