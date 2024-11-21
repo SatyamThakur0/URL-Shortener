@@ -11,12 +11,20 @@ dotenv.config({});
 app.use(express.json());
 app.use(cors());
 
+app.use(
+    cors({
+        origin: process.env.FRONTEND_URL,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
+    })
+);
+
 // Connect to MongoDB
 mongoose
     .connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-    }) 
+    })
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -29,7 +37,7 @@ const urlSchema = new mongoose.Schema({
 
 const Url = mongoose.model("Url", urlSchema);
 
-// API Routes 
+// API Routes
 app.post("/api/shorten", async (req, res) => {
     const { longUrl } = req.body;
 
