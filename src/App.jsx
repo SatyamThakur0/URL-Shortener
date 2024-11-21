@@ -5,16 +5,19 @@ import UrlShortener from "./components/Url_shortener";
 import ShortenedUrls from "./components/Shortened_urls";
 
 function App() {
+    // STATES
     const [longUrl, setLongUrl] = useState("");
     const [shortUrl, setShortUrl] = useState("");
     const [URL, setURL] = useState([]);
     const [loading, setLoading] = useState(false);
     const inputRef = useRef();
 
+    // UPDATING URL STATE
     useEffect(() => {
         setURL(JSON.parse(localStorage.getItem("urls")) || []);
     }, []);
 
+    // ON FORM SUBMIT
     const handleSubmit = async (e) => {
         const backendurl = import.meta.env.VITE_BACKEND_URL;
         e.preventDefault();
@@ -33,6 +36,7 @@ function App() {
                 }
             );
             response = response.data;
+            // CLEARING INPUT FIELD
             inputRef.current.value = "";
             setLoading(false);
 

@@ -9,7 +9,11 @@ export default function Header() {
                 <FaLink className="text-2xl" />
                 <div className="text-2xl font-bold">Shorty</div>
             </div>
-            <div className={`${window.innerWidth<460 && "flex-col gap-0"} flex items-center gap-4`}>
+            <div
+                className={`${
+                    window.innerWidth < 460 && "flex-col gap-0"
+                } flex items-center gap-4`}
+            >
                 <span className="font-semibold">Hi, Satyam 👋</span>
                 <Button
                     onClick={() => {
