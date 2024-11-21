@@ -12,7 +12,7 @@ function App() {
     const inputRef = useRef();
 
     useEffect(() => {
-        setURL(JSON.parse(localStorage.getItem("urls")));
+        setURL(JSON.parse(localStorage.getItem("urls")) || []);
     }, []);
 
     const handleSubmit = async (e) => {
