@@ -9,8 +9,8 @@ dotenv.config({});
 
 // Middleware
 app.use(express.json());
-// app.use(cors());
 
+// app.use(cors());
 app.use(
     cors({
         origin: process.env.FRONTEND_URL,
@@ -37,18 +37,16 @@ const urlSchema = new mongoose.Schema({
     clicks: { type: String },
 });
 
+//URL model
 const Url = mongoose.model("Url", urlSchema);
 
 // API Routes
 app.post("/api/shorten", async (req, res) => {
     const { longUrl } = req.body;
-
     if (!longUrl)
         return res.status(400).json({ error: "Long URL is required" });
-
     const shortId = shortid.generate();
     const shortUrl = `${process.env.BACKEND_URL}/${shortId}`;
-
     try {
         const newUrl = new Url({ longUrl, shortId });
         await newUrl.save();
@@ -63,9 +61,9 @@ app.get("/", (req, res) => {
     res.send("Hello there");
 });
 
+// redirects to original url
 app.get("/:shortId", async (req, res) => {
     const { shortId } = req.params;
-
     try {
         const urlEntry = await Url.findOne({ shortId });
         urlEntry.clicks = urlEntry.clicks + 1;
