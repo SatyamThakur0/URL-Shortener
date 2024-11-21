@@ -40,7 +40,7 @@ export default function ShortenedUrls({ URL, setURL }) {
                     {[...URL]?.reverse().map((url, i) => (
                         <Card
                             key={i}
-                            className="bg-[#f9731650] border-none p-6"
+                            className="bg-[#f9731650] border-none p-6 w-[360px]"
                         >
                             <CardContent className="bor der-2 p-0 border-red-500">
                                 <p className="text-sm truncate break-words">

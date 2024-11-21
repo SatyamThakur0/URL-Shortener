@@ -29,7 +29,7 @@ export default function UrlShortener({
                 right?
             </p>
             <form
-                className="mt-20 flex justify-center gap-4"
+                className={`${window.innerWidth<562 && "flex-col items-center"} mt-20 flex justify-center gap-4`}
                 onSubmit={(e) => handleSubmit(e)}
             >
                 <input
@@ -37,7 +37,7 @@ export default function UrlShortener({
                     type="text"
                     ref={inputRef}
                     placeholder="https://yoursite.com/this-is-a-very-large-url-but-boring"
-                    className="w-2/3 p-2 rounded-lg text-black bg-[#f9731650] outline-none placeholder:text-gray-700"
+                    className={`${window.innerWidth<562 && "w-full"} w-2/3 p-2 rounded-lg text-black bg-[#f9731650] outline-none placeholder:text-gray-700`}
                 />
                 {!loading ? (
                     <Button className="bg-orange-500 w-[120px] text-black hover:bg-orange-600">
