@@ -37,7 +37,7 @@ const urlSchema = new mongoose.Schema({
     clicks: { type: String },
 });
 
-//URL model
+//URL Model
 const Url = mongoose.model("Url", urlSchema);
 
 // API Routes

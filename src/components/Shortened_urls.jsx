@@ -4,7 +4,6 @@ import { IoCopy } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import TypeIt from "typeit-react";
 export default function ShortenedUrls({ URL, setURL }) {
-
     // DELETE URL FROM USER DASHBOARD PAGE
     const deleteUrl = (shortUrl) => {
         let updatedURL = URL.filter((url) => url.shortUrl !== shortUrl);
@@ -28,6 +27,7 @@ export default function ShortenedUrls({ URL, setURL }) {
                         options={{
                             strings: ["This will be typed!"],
                             speed: -30,
+                            cursor: false,
                             waitUntilVisible: true,
                         }}
                     >

@@ -16,6 +16,7 @@ export default function UrlShortener({
                     options={{
                         strings: ["This will be typed!"],
                         speed: -30,
+                        cursor:false,
                         waitUntilVisible: true,
                     }}
                 >
